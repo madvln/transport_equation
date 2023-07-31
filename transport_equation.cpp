@@ -1,16 +1,16 @@
-#include "transport_equation_solver.h"
+п»ї#include "transport_equation_solver.h"
 int main()
 {
-	double length = 10000;//длина трубы
-	double dx = 1000;//размер шага
-	int N = 5;//кол-во шагов
-	vector<double> flow(N, 0.5);//массмв потоков на каждом шагу
-	transport_equation_solver solver(N, length, dx);//объявляем solver как классовую переменную и считаем количество точек
-	int n = solver.get_point_count();//получаем количество точек
-	vector<double> layer_zero(n, 870);//vector<double> layer_zero = solver.gen_layer_with_rho(n,860,20);//генерим первый слой, размер массива = кол-во точек
-	vector<double> rho_in(N, 860);//vector<double> rho_in = solver.gen_layer_with_rho(N,850,10);//генерим массив с входными плотностями, размер массива = кол-во шагов
-	vector<double> rho_out(N, 880);//vector<double> rho_out = solver.gen_layer_with_rho(N,870,10);//генерим массив с выходными плотностями
-	vector<vector<double>> layers = solver.get_and_print_layers(layer_zero,rho_in,rho_out,flow);//получаем матрицу из двух слоев, печатаем в txt все слои
-	vector<double> prev_layer = solver.get_layer_prev();//предыдущ слой
-	vector<double> next_layer = solver.get_layer_next();//текущ слой
+	double length = 10000;//РґР»РёРЅР° С‚СЂСѓР±С‹
+	double dx = 1000;//СЂР°Р·РјРµСЂ С€Р°РіР°
+	int N = 5;//РєРѕР»-РІРѕ С€Р°РіРѕРІ
+	vector<double> flow(N, 0.5);//РјР°СЃСЃРјРІ РїРѕС‚РѕРєРѕРІ РЅР° РєР°Р¶РґРѕРј С€Р°РіСѓ
+	transport_equation_solver solver(N, length, dx);//РѕР±СЉСЏРІР»СЏРµРј solver РєР°Рє РєР»Р°СЃСЃРѕРІСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ Рё СЃС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє
+	int n = solver.get_point_count();//РїРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє
+	vector<double> layer_zero(n, 870);//vector<double> layer_zero = solver.gen_layer_with_rho(n,860,20);//РіРµРЅРµСЂРёРј РїРµСЂРІС‹Р№ СЃР»РѕР№, СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР° = РєРѕР»-РІРѕ С‚РѕС‡РµРє
+	vector<double> rho_in(N, 860);//vector<double> rho_in = solver.gen_layer_with_rho(N,850,10);//РіРµРЅРµСЂРёРј РјР°СЃСЃРёРІ СЃ РІС…РѕРґРЅС‹РјРё РїР»РѕС‚РЅРѕСЃС‚СЏРјРё, СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР° = РєРѕР»-РІРѕ С€Р°РіРѕРІ
+	vector<double> rho_out(N, 880);//vector<double> rho_out = solver.gen_layer_with_rho(N,870,10);//РіРµРЅРµСЂРёРј РјР°СЃСЃРёРІ СЃ РІС‹С…РѕРґРЅС‹РјРё РїР»РѕС‚РЅРѕСЃС‚СЏРјРё
+	vector<vector<double>> layers = solver.get_and_print_layers(layer_zero,rho_in,rho_out,flow);//РїРѕР»СѓС‡Р°РµРј РјР°С‚СЂРёС†Сѓ РёР· РґРІСѓС… СЃР»РѕРµРІ, РїРµС‡Р°С‚Р°РµРј РІ txt РІСЃРµ СЃР»РѕРё
+	vector<double> prev_layer = solver.get_layer_prev();//РїСЂРµРґС‹РґСѓС‰ СЃР»РѕР№
+	vector<double> next_layer = solver.get_layer_next();//С‚РµРєСѓС‰ СЃР»РѕР№
 }

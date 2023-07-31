@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <vector>
 #include <fstream>
 #include <ctime>
@@ -11,9 +11,9 @@ public:
 
 	transport_equation_solver(int steps, double pipe_len, double step_len)
 	{
-		setlocale(LC_CTYPE, "rus"); //в консоли чтобы кириллица была
+		setlocale(LC_CTYPE, "rus"); //РІ РєРѕРЅСЃРѕР»Рё С‡С‚РѕР±С‹ РєРёСЂРёР»Р»РёС†Р° Р±С‹Р»Р°
 		N = steps;
-		n = static_cast<int>(pipe_len / step_len + 0.5) + 1;//считаем количество точек
+		n = static_cast<int>(pipe_len / step_len + 0.5) + 1;//СЃС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє
 	}
 
 	int get_point_count() const {
