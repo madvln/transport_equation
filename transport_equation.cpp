@@ -8,9 +8,13 @@ int main()
 	transport_equation_solver solver(N, length, dx);//объявляем solver как классовую переменную и считаем количество точек
 	int n = solver.get_point_count();//получаем количество точек
 	vector<double> layer_zero(n, 870);//vector<double> layer_zero = solver.gen_layer_with_rho(n,860,20);//генерим первый слой, размер массива = кол-во точек
+	vector<double> layer_zero2(n, 1.65);
 	vector<double> rho_in(N, 860);//vector<double> rho_in = solver.gen_layer_with_rho(N,850,10);//генерим массив с входными плотностями, размер массива = кол-во шагов
 	vector<double> rho_out(N, 880);//vector<double> rho_out = solver.gen_layer_with_rho(N,870,10);//генерим массив с выходными плотностями
-	vector<vector<double>> layers = solver.get_and_print_layers(layer_zero,rho_in,rho_out,flow);//получаем матрицу из двух слоев, печатаем в txt все слои
+	vector<double> sera_in(N, 1.55);
+	vector<double> sera_out(N, 1.75);
+	vector<vector<double>> layers = solver.get_and_print_layers(layer_zero,layer_zero2,flow,rho_in,rho_out, sera_in, sera_out);//получаем матрицу из двух слоев, печатаем в txt все слои
 	vector<double> prev_layer = solver.get_layer_prev();//предыдущ слой
 	vector<double> next_layer = solver.get_layer_next();//текущ слой
+
 }

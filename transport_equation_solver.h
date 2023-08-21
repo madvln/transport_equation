@@ -37,43 +37,62 @@ public:
 		return layer;
 	}
 
-	vector<vector<double>> get_and_print_layers(vector<double> zero_layer, vector<double> rho_in, vector<double> rho_out, vector<double> flow)
+	vector<vector<double>> get_and_print_layers(vector<double> zero_layer, vector<double> zero_layer2, vector<double> flow, vector<double> rho_in = vector<double>(1, 0), vector<double> rho_out = vector<double>(1, 0), vector<double> sera_in = vector<double>(1, 0), vector<double> sera_out = vector<double>(1, 0))
 	{
 		ofstream fout("layers.txt");
 		if (fout.is_open())
 		{
-			vector<vector<double>> layers(2, zero_layer);
+			int K = 0;
+			if (sera_in[0] > 0)
+				K = K + 2;
+			if (rho_in[0] > 0)
+				K = K + 2;
+			vector<vector<double>> inoutlayers(4);
+			inoutlayers[0] = rho_in;
+			inoutlayers[1] = rho_out;
+			inoutlayers[2] = sera_in;
+			inoutlayers[3] = sera_out;
+			vector<vector<double>> layers(4);
+			layers[0] = zero_layer;
+			layers[1] = zero_layer;
+			layers[2] = zero_layer2;
+			layers[3] = zero_layer2;
 
-			for (int j = 0; j < n; j++)
-				fout << layers[0][j] << "\t";
-			fout << "\n";
+
+
 			int Nin = rho_in.size();
 			int Nout = rho_out.size();
-			for (int i = 0; i < N; i++)
-				if (flow[i] > 0)
-				{
-					layers[0] = layers[1];
-					layers[1][0] = rho_in[Nin - 1 - i];
+			for (int k = 0; k < K; k = k + 2)
+			{
+				for (int j = 0; j < n; j++)
+					fout << layers[k][j] << "\t";
+				fout << "\n";
+				for (int i = 0; i < N; i++)
+					if (flow[i] > 0)
+					{
+						layers[k] = layers[k + 1];
+						layers[k + 1][0] = inoutlayers[k][Nin - 1 - i];
 
-					for (int k = 0; k < n - 1; k++)
-						layers[1][k + 1] = layers[0][k];
+						for (int l = 0; l < n - 1; l++)
+							layers[k + 1][l + 1] = layers[k][l];
 
-					for (int j = 0; j < n; j++)
-						fout << layers[1][j] << "\t";
-					fout << "\n";
-				}
-				else
-				{
-					layers[0] = layers[1];
-					layers[1][n - 1] = rho_out[i];
+						for (int j = 0; j < n; j++)
+							fout << layers[k + 1][j] << "\t";
+						fout << "\n";
+					}
+					else
+					{
+						layers[k] = layers[k + 1];
+						layers[k + 1][n - 1] = inoutlayers[k + 1][i];
 
-					for (int k = n - 1; k > 0; k--)
-						layers[1][k - 1] = layers[0][k];
+						for (int l = n - 1; l > 0; l--)
+							layers[k + 1][l - 1] = layers[k][l];
 
-					for (int j = 0; j < n; j++)
-						fout << layers[1][j] << "\t";
-					fout << "\n";
-				}
+						for (int j = 0; j < n; j++)
+							fout << layers[k + 1][j] << "\t";
+						fout << "\n";
+					}
+			}
 			layer_prev = layers[0];
 			layer_next = layers[1];
 			return layers;
