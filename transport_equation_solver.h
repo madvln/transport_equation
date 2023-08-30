@@ -57,13 +57,10 @@ public:
 			layers[1] = zero_layer;
 			layers[2] = zero_layer2;
 			layers[3] = zero_layer2;
-
-
-
-			int Nin = rho_in.size();
-			int Nout = rho_out.size();
 			for (int k = 0; k < K; k = k + 2)
 			{
+				int Nin = inoutlayers[k].size();
+				int Nout = inoutlayers[k+1].size();
 				for (int j = 0; j < n; j++)
 					fout << layers[k][j] << "\t";
 				fout << "\n";
